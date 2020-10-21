@@ -1,0 +1,13 @@
+# *.sct
+# *.uvguix.*
+# *.lst
+# *.i
+# *.hex
+# *.d
+# *.o
+
+# Keil
+Listings
+Objects
+*.uvguix.*
+*.scvd
