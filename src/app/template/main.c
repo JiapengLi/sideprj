@@ -2,18 +2,21 @@
 
 #include <stdint.h>
 
+void systick_evt(void);
+uint32_t millis(void);
+
 #define SYSTICK_TICK_UNIT_NS            (50 * 1000)
 
-uint64_t systick_cnt = 0;
+static uint64_t systick_cnt = 0;
 
 void systick_evt(void)
 {
     systick_cnt++;
 }
 
-uint32_t millis()
+uint32_t millis(void)
 {
-    return systick_cnt * SYSTICK_TICK_UNIT_NS / 1000000;
+    return (uint32_t)(systick_cnt * SYSTICK_TICK_UNIT_NS / 1000000);
 }
 
 //P1.07
@@ -33,7 +36,9 @@ int main(void)
     pins_state = NRF_P1->OUT;
     NRF_P1->OUTSET = (~pins_state & (1UL << PIN));
     NRF_P1->OUTCLR = (pins_state & (1UL << PIN));
-    
+    pins_state = NRF_P1->OUT;
+    NRF_P1->OUTSET = (~pins_state & (1UL << PIN));
+    NRF_P1->OUTCLR = (pins_state & (1UL << PIN));    
     while (1) {
         if ((millis() - ms) > 1000) {
             ms = millis();

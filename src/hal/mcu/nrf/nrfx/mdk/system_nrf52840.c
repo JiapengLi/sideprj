@@ -47,7 +47,7 @@ void SystemCoreClockUpdate(void)
     SystemCoreClock = __SYSTEM_CLOCK_64M;
 }
 
-void SystemInit(void)
+__attribute__((used)) void SystemInit(void)
 {
     /* Enable SWO trace functionality. If ENABLE_SWO is not defined, SWO pin will be used as GPIO (see Product
        Specification to see which one). */
