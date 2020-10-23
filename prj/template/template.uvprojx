@@ -410,6 +410,13 @@
         </Group>
         <Group>
           <GroupName>hal/board</GroupName>
+          <Files>
+            <File>
+              <FileName>hal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\hal\board\nrf52840-m2\hal.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>hal/user</GroupName>
@@ -418,6 +425,16 @@
               <FileName>hal-gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\hal\user\nrf52\hal-gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal-clk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\hal\user\nrf52\hal-clk.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal-systick-emu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\hal\user\nrf52\hal-systick-emu.c</FilePath>
             </File>
           </Files>
         </Group>
