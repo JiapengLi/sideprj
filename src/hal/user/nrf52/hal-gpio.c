@@ -16,7 +16,6 @@ void hal_gpio_write(gpio_t gpio, uint32_t val)
 {
     NRF_GPIO_Type *port = (NRF_GPIO_Type *)(NRF_P0_BASE + (gpio / 32) * 0x300);
 
-    
     if (val) {
         port->OUTSET = 1UL << (gpio % 32);
     } else {

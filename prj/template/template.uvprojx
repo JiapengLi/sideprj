@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>__LINT__=1 NRF52_SERIES DEVELOP_IN_NRF52840</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\src\hal\mcu\cmsis\include;..\..\src\hal\mcu\nrf\nrfx\mdk;..\..\src\hal\user\nrf52</IncludePath>
+              <IncludePath>..\..\src\hal\mcu\cmsis\include;..\..\src\hal\mcu\nrf\nrfx\mdk;..\..\src\hal\user\nrf52;..\..\src\hal\board\nrf52840-m2</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

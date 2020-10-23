@@ -1,7 +1,5 @@
-#include "nrf.h"
-
 #include <stdint.h>
-#include "hal-gpio.h"
+#include "hal.h"
 
 void systick_evt(void);
 uint32_t millis(void);
