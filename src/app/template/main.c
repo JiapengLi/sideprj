@@ -6,6 +6,8 @@ int main(void)
     uint32_t ms[10];
     uint32_t flag = 1;
 	
+    hal_clk_init();
+    
     hal_gpio_init(P0_31, GPIO_OUTPUT);
     hal_gpio_init(P0_30, GPIO_OUTPUT);
     hal_gpio_init(P0_29, GPIO_OUTPUT);

@@ -4,6 +4,7 @@
 #include "nrf.h"
 #include "nrf52840-m2-pins.h"
 
+#include "hal-clk.h"
 #include "hal-gpio.h"
 #include "hal-systick-emu.h"
 
