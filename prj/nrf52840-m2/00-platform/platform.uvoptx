@@ -22,7 +22,7 @@
   </DaveTm>
 
   <Target>
-    <TargetName>template</TargetName>
+    <TargetName>platform</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
@@ -267,7 +267,7 @@
 
   <Group>
     <GroupName>app</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -275,10 +275,10 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>1</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\src\app\template\main.c</PathWithFileName>
+      <PathWithFileName>..\..\..\src\app\platform\nrf52840-m2\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -298,7 +298,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\src\hal\mcu\nrf\nrfx\mdk\system_nrf52840.c</PathWithFileName>
+      <PathWithFileName>..\..\..\src\hal\mcu\nrf\nrfx\mdk\system_nrf52840.c</PathWithFileName>
       <FilenameWithoutPath>system_nrf52840.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -310,7 +310,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\src\hal\mcu\nrf\nrfx\mdk\arm_startup_nrf52840.s</PathWithFileName>
+      <PathWithFileName>..\..\..\src\hal\mcu\nrf\nrfx\mdk\arm_startup_nrf52840.s</PathWithFileName>
       <FilenameWithoutPath>arm_startup_nrf52840.s</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -338,7 +338,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\src\hal\board\nrf52840-m2\hal.c</PathWithFileName>
+      <PathWithFileName>..\..\..\src\hal\board\nrf52840-m2\hal.c</PathWithFileName>
       <FilenameWithoutPath>hal.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -358,7 +358,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\src\hal\user\nrf52\hal-gpio.c</PathWithFileName>
+      <PathWithFileName>..\..\..\src\hal\user\nrf52\hal-gpio.c</PathWithFileName>
       <FilenameWithoutPath>hal-gpio.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -370,7 +370,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\src\hal\user\nrf52\hal-clk.c</PathWithFileName>
+      <PathWithFileName>..\..\..\src\hal\user\nrf52\hal-clk.c</PathWithFileName>
       <FilenameWithoutPath>hal-clk.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -382,7 +382,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\src\hal\user\nrf52\hal-systick-emu.c</PathWithFileName>
+      <PathWithFileName>..\..\..\src\hal\user\nrf52\hal-systick-emu.c</PathWithFileName>
       <FilenameWithoutPath>hal-systick-emu.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -391,10 +391,10 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>8</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\src\hal\user\nrf52\hal-uart.c</PathWithFileName>
+      <PathWithFileName>..\..\..\src\hal\user\nrf52\hal-uart.c</PathWithFileName>
       <FilenameWithoutPath>hal-uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
