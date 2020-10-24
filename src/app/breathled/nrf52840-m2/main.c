@@ -5,6 +5,9 @@
 
 int main(void)
 {
+    uint32_t ms;
+    uint32_t ledsta = 0;
+    
     system_init();
     
     while(!serial_out('J'));
@@ -33,8 +36,14 @@ int main(void)
         }
         
         breathled();
-
-        /* systick emulator */
+        
+        if ((millis() - ms) >= 1000) {
+            ms = millis();
+            
+            hal_gpio_write(LED3_PIN, ledsta % 2);
+            ledsta++;
+        }
+        
         hal_systick_emu_evt();
     }
 }

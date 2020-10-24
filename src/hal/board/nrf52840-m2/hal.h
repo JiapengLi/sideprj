@@ -10,14 +10,15 @@
 #include "hal-gpio.h"
 #include "hal-systick-emu.h"
 
-#define SYSTICK_TIME_PER_TICK               (500)           // ns
-#define SYSTICK_1MS                         (1000000)       // ns
+#define SYSTICK_TIME_PER_TICK               (3000)              // ns
+#define SYSTICK_1MS                         (1000000)           // ns
 
 #define KEY1_PIN                            (P0_19)
 #define KEY2_PIN                            (P0_20)
 
 #define LED1_PIN                            (P0_29)
-#define LED2_PIN                            (P0_30)
+#define LED2_PIN                            (P1_07)
+#define LED3_PIN                            (P0_31)
 
 #define LED_ON                              (0)
 #define LED_OFF                             (1)
@@ -40,5 +41,8 @@ bool serial_in(uint8_t *dt);
 bool serial_out(uint8_t dt);
 
 uint32_t millis(void);
+
+void breathled_init(void);
+void breathled(void);
 
 #endif
