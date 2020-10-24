@@ -33,8 +33,5 @@ int main(void)
         }
         
         breathled();
-
-        /* systick emulator */
-        hal_systick_emu_evt();
     }
 }

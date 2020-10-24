@@ -31,4 +31,5 @@
 
 ## TODO
 
-TBD
+- astyle  auto format code
+- change variable name

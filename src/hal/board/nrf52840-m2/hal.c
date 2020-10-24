@@ -144,4 +144,7 @@ void breathled(void)
         }
         break;
     }
+
+    /* systick emulator */
+    hal_systick_emu_evt();
 }

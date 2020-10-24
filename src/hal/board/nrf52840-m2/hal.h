@@ -2,6 +2,7 @@
 #define __HAL__
 
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "nrf.h"
 #include "nrf52840-m2-pins.h"

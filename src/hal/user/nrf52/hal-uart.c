@@ -56,6 +56,11 @@ static uint32_t get_br(uint32_t br)
 void hal_uart_init(uart_t uart, gpio_t txpin, gpio_t rxpin, const uart_cfg_t *cfg)
 {
     uint32_t config;
+    
+    if (cfg == NULL) {
+        return;
+    }
+    
     switch (uart) {
     case UART_0:
         config = 0;
@@ -129,9 +134,12 @@ bool hal_uart_tx(uart_t uart, uint8_t dt)
     return false;
 }
 
-
 bool hal_uart_rx(uart_t uart, uint8_t *dt)
 {
+    if (dt == NULL) {
+        return false;
+    }
+
     switch (uart) {
     case UART_0:
         if (NRF_UART0->EVENTS_RXDRDY != 0) {
