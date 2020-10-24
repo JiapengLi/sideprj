@@ -1,3 +1,5 @@
+
+
 ## File Structure
 
 | Path                   | Description                                    |
@@ -8,15 +10,25 @@
 | `src/app/$BOARD/$APP/` | Application layer source code                  |
 | `src/app/common/`      | Common application driver                      |
 | `src/lib/`             | Middle layer driver                            |
-| `src/hal/mcu`          | CMSIS and verdor library                       |
+| `src/hal/mcu`          | CMSIS and manufacture library                  |
 | `src/hal/user/$CHIP`   | User defined low level driver for a group MCUs |
 | `src/hal/board/$BOARD` | Board specific driver, `lib` low level driver  |
 |                        |                                                |
 |                        |                                                |
 
+## Design Rules
 
+1. Manipulate MCU registers directly, use minimum official redundancy library. 
+2. Split source code into layers
 
-## 设计原则
+## Projects
 
-1. 使用直接调用寄存器的方式实现外设操作的简单接口，最小化依赖官方仓库
-2. 
+| Subject           | Path                                           | Percent |
+| ----------------- | ---------------------------------------------- | ------- |
+| 00-Build platform | `prj\nrf52840-m2\00-platform\platform.uvprojx` | 100%    |
+|                   |                                                |         |
+|                   |                                                |         |
+
+## TODO
+
+TBD
