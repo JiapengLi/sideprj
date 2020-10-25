@@ -4,25 +4,25 @@
 void system_init(void)
 {
     uart_cfg_t uart_cfg;
-    
+
     hal_clk_init();
-    
+
     hal_gpio_init(LED1_PIN, GPIO_OUTPUT);
     hal_gpio_init(LED2_PIN, GPIO_OUTPUT);
     hal_gpio_init(LED3_PIN, GPIO_OUTPUT);
     hal_gpio_write(LED1_PIN, LED_OFF);
     hal_gpio_write(LED2_PIN, LED_OFF);
     hal_gpio_write(LED3_PIN, LED_OFF);
-    
+
     hal_gpio_init(KEY1_PIN, GPIO_INPUT_PU);
     hal_gpio_init(KEY2_PIN, GPIO_INPUT_PU);
-    
+
     uart_cfg.baudrate = 9600;
     uart_cfg.data_bits = 8;
     uart_cfg.parity = NONE;
     uart_cfg.stop_bits = 1;
     hal_uart_init(UART_0, P0_16, P0_15, &uart_cfg);
-    
+
     breathled_init();
 }
 
@@ -69,9 +69,9 @@ void pwm_emu_evt(void)
     g_tPWMEmu.wCnt++;
     if (g_tPWMEmu.wCnt > g_tPWMEmu.wArr) {
         g_tPWMEmu.wCnt = 0;
-        
+
         g_tPWMEmu.wCmp = g_tPWMEmu.wNextCmp;
-        
+
         if (g_tPWMEmu.wCmp != 0) {
             LED2_ON();
         } else {
@@ -110,7 +110,7 @@ static bled_t g_tBLED;
 void breathled_init(void)
 {
     pwm_emu_init(BLED_CYCLE, 0);
-    
+
     g_tBLED.tSta = BLED_STA_ON;
     g_tBLED.wDutyCycle = 0;
     g_tBLED.wMs = 0;
@@ -120,43 +120,43 @@ void breathled_init(void)
 void breathled(void)
 {
     uint32_t wCurMs = millis();
-    
+
     switch (g_tBLED.tSta) {
-    case BLED_STA_ON:
-        if ((wCurMs - g_tBLED.wTimeout) > 2) {
-            g_tBLED.wTimeout = millis();
-            g_tBLED.wDutyCycle += BLED_STEPS;
-            pwm_emu_update(g_tBLED.wDutyCycle);
-        }
-        if ((wCurMs - g_tBLED.wMs) >= BLED_ON_DURATIOIN) {
-            g_tBLED.wMs = millis();
-            g_tBLED.tSta = BLED_STA_OFF;
-        }
-        break;
-    case BLED_STA_OFF:
-        if ((wCurMs - g_tBLED.wTimeout) > 2) {
-            g_tBLED.wTimeout = millis();
-            if (g_tBLED.wDutyCycle != 0) {
-                g_tBLED.wDutyCycle -= BLED_STEPS;
+        case BLED_STA_ON:
+            if ((wCurMs - g_tBLED.wTimeout) > 2) {
+                g_tBLED.wTimeout = millis();
+                g_tBLED.wDutyCycle += BLED_STEPS;
+                pwm_emu_update(g_tBLED.wDutyCycle);
             }
-            pwm_emu_update(g_tBLED.wDutyCycle);
-        }
-        if ((wCurMs - g_tBLED.wMs) >= BLED_OFF_DURATIOIN) {
-            g_tBLED.wMs = millis();
-            g_tBLED.tSta = BLED_STA_IDLE;
-        }
-        break;
-    case BLED_STA_IDLE:
-        if ((wCurMs - g_tBLED.wMs) >= BLED_IDLE_DURATION) {
-            g_tBLED.wMs = millis();
-            g_tBLED.tSta = BLED_STA_ON;
-        }
-        break;    
+            if ((wCurMs - g_tBLED.wMs) >= BLED_ON_DURATIOIN) {
+                g_tBLED.wMs = millis();
+                g_tBLED.tSta = BLED_STA_OFF;
+            }
+            break;
+        case BLED_STA_OFF:
+            if ((wCurMs - g_tBLED.wTimeout) > 2) {
+                g_tBLED.wTimeout = millis();
+                if (g_tBLED.wDutyCycle != 0) {
+                    g_tBLED.wDutyCycle -= BLED_STEPS;
+                }
+                pwm_emu_update(g_tBLED.wDutyCycle);
+            }
+            if ((wCurMs - g_tBLED.wMs) >= BLED_OFF_DURATIOIN) {
+                g_tBLED.wMs = millis();
+                g_tBLED.tSta = BLED_STA_IDLE;
+            }
+            break;
+        case BLED_STA_IDLE:
+            if ((wCurMs - g_tBLED.wMs) >= BLED_IDLE_DURATION) {
+                g_tBLED.wMs = millis();
+                g_tBLED.tSta = BLED_STA_ON;
+            }
+            break;
     }
-    
+
     /*  */
     pwm_emu_evt();
 
     /* systick emulator */
-    hal_systick_emu_evt();    
+    hal_systick_emu_evt();
 }
