@@ -5,8 +5,7 @@ SCRIPTPATH=`dirname $SCRIPT`
 REPOPATH="$SCRIPTPATH/.."
 TOOLPATH="$REPOPATH/tool/toolbox"
 
-$TOOLPATH/astyle --style=kr --indent=spaces=4 --pad-oper --pad-header --unpad-paren --suffix=none --align-pointer=name --indent-switches --lineend=windows --convert-tabs --verbose $1
-
+$TOOLPATH/astyle --style=kr --indent=spaces=4 --pad-oper --pad-header --unpad-paren --suffix=none --align-pointer=name --indent-switches --lineend=windows --convert-tabs --verbose "$@"
 
 : <<'END'
 bla bla

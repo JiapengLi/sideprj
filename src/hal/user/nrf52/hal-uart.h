@@ -12,14 +12,14 @@ typedef enum {
     UART_MAX,
 } uart_t;
 
-typedef enum{
-	NONE,
-  	EVEN,
-	ODD,
-}uart_parity_t;
+typedef enum {
+    NONE,
+    EVEN,
+    ODD,
+} uart_parity_t;
 
-typedef uint8_t (*uart_tx_cb_t) (uart_t);
-typedef void (*uart_rx_cb_t) (uart_t, uint8_t);
+typedef uint8_t (*uart_tx_cb_t)(uart_t);
+typedef void (*uart_rx_cb_t)(uart_t, uint8_t);
 
 typedef struct {
     uint32_t wBaudRate;

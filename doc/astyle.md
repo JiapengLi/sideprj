@@ -44,6 +44,11 @@ int Foo(bool isBar)
 - trailing whitespaces always removed https://sourceforge.net/p/astyle/bugs/455/
 - 
 
+## Command
 
-
+```bash
+sh tool/as.sh --recursive "src/hal/user/*.c,*.h"
+sh tool/as.sh --recursive "src/app/*.c,*.h"
+sh tool/as.sh --recursive "src/hal/board/*.c,*.h"
+```
 
