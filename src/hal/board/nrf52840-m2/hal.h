@@ -36,14 +36,14 @@
 #define IS_KEY2_DOWN()                      (hal_gpio_read(KEY2_PIN) == 0)
 #define IS_KEY2_UP()                        (hal_gpio_read(KEY2_PIN) != 0)
 
-void system_init(void);
+extern void system_init(void);
 
-bool serial_in(uint8_t *dt);
-bool serial_out(uint8_t dt);
+extern bool serial_in(uint8_t *pData);
+extern bool serial_out(uint8_t chData);
 
-uint32_t millis(void);
+extern uint32_t millis(void);
 
-void breathled_init(void);
-void breathled(void);
+extern void breathled_init(void);
+extern void breathled(void);
 
 #endif

@@ -38,8 +38,8 @@ typedef enum {
     GPIO_ALT_OD_PD      = 0x00000,
 } gpio_cfg_t;
 
-void hal_gpio_init(gpio_t gpio, gpio_cfg_t cfg);
-void hal_gpio_write(gpio_t pin, uint32_t val);
-uint32_t hal_gpio_read(gpio_t pin);
+extern void hal_gpio_init(gpio_t tGpio, gpio_cfg_t tCfg);
+extern void hal_gpio_write(gpio_t tPin, uint32_t wVal);
+extern uint32_t hal_gpio_read(gpio_t tPin);
 
 #endif

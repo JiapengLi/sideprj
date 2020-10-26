@@ -1,20 +1,18 @@
 #include "hal.h"
 
-static volatile uint32_t systick_cnt = 0;
-static volatile uint32_t systick_cnt_ms = 0;
+static volatile uint32_t g_wSysTickCnt = 0;
+static volatile uint32_t g_wSysTickCntMs = 0;
 
 void hal_systick_emu_evt(void)
 {
-    systick_cnt += SYSTICK_TIME_PER_TICK;
-    while (systick_cnt >= SYSTICK_1MS) {
-        systick_cnt -= SYSTICK_1MS;
-        systick_cnt_ms++;
+    g_wSysTickCnt += SYSTICK_TIME_PER_TICK;
+    while (g_wSysTickCnt >= SYSTICK_1MS) {
+        g_wSysTickCnt -= SYSTICK_1MS;
+        g_wSysTickCntMs++;
     }
 }
 
 uint32_t hal_systick_emu_millis(void)
 {
-    return systick_cnt_ms;
+    return g_wSysTickCntMs;
 }
-
-

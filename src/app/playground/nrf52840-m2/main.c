@@ -5,8 +5,8 @@
 
 int main(void)
 {
-    uint32_t ms;
-    uint32_t ledsta = 0;
+    uint32_t wMs;
+    uint32_t wLEDSta = 0;
     
     system_init();
     
@@ -37,13 +37,11 @@ int main(void)
         
         breathled();
         
-        if ((millis() - ms) >= 1000) {
-            ms = millis();
+        if ((millis() - wMs) >= 1000) {
+            wMs = millis();
             
-            hal_gpio_write(LED3_PIN, ledsta % 2);
-            ledsta++;
+            hal_gpio_write(LED3_PIN, wLEDSta % 2);
+            wLEDSta++;
         }
-        
-        hal_systick_emu_evt();
     }
 }

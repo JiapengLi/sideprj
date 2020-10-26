@@ -22,17 +22,17 @@ typedef uint8_t (*uart_tx_cb_t) (uart_t);
 typedef void (*uart_rx_cb_t) (uart_t, uint8_t);
 
 typedef struct {
-    uint32_t baudrate;
-    int8_t data_bits;
-    bool parity;
-    int8_t stop_bits;
-    
-    uart_tx_cb_t txcb;
-    uart_rx_cb_t rxcb;
+    uint32_t wBaudRate;
+    int8_t cDataBits;
+    bool bParity;
+    int8_t cStopBits;
+
+    uart_tx_cb_t fnTxCb;
+    uart_rx_cb_t fnRxCb;
 } uart_cfg_t;
 
-void hal_uart_init(uart_t uart, gpio_t txpin, gpio_t rxpin, const uart_cfg_t *cfg);
-bool hal_uart_tx(uart_t uart, uint8_t dt);
-bool hal_uart_rx(uart_t uart, uint8_t *dt);
+extern void hal_uart_init(uart_t tUart, gpio_t tTxPin, gpio_t tRxPin, const uart_cfg_t *c_pCfg);
+extern bool hal_uart_tx(uart_t tUart, uint8_t chData);
+extern bool hal_uart_rx(uart_t tUart, uint8_t *pData);
 
 #endif

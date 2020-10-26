@@ -3,7 +3,7 @@
 
 void system_init(void)
 {
-    uart_cfg_t uart_cfg;
+    uart_cfg_t tUartCfg;
 
     hal_clk_init();
 
@@ -17,23 +17,23 @@ void system_init(void)
     hal_gpio_init(KEY1_PIN, GPIO_INPUT_PU);
     hal_gpio_init(KEY2_PIN, GPIO_INPUT_PU);
 
-    uart_cfg.baudrate = 9600;
-    uart_cfg.data_bits = 8;
-    uart_cfg.parity = NONE;
-    uart_cfg.stop_bits = 1;
-    hal_uart_init(UART_0, P0_16, P0_15, &uart_cfg);
+    tUartCfg.wBaudRate = 9600;
+    tUartCfg.cDataBits = 8;
+    tUartCfg.bParity = NONE;
+    tUartCfg.cStopBits = 1;
+    hal_uart_init(UART_0, P0_16, P0_15, &tUartCfg);
 
     breathled_init();
 }
 
-bool serial_in(uint8_t *dt)
+bool serial_in(uint8_t *pData)
 {
-    return hal_uart_rx(UART_0, dt);
+    return hal_uart_rx(UART_0, pData);
 }
 
-bool serial_out(uint8_t dt)
+bool serial_out(uint8_t pData)
 {
-    return hal_uart_tx(UART_0, dt);
+    return hal_uart_tx(UART_0, pData);
 }
 
 uint32_t millis(void)
@@ -41,6 +41,8 @@ uint32_t millis(void)
     return hal_systick_emu_millis();
 }
 
+/*-------------------------------------------------------------------------*/
+// pwm module
 typedef struct {
     uint32_t wArr;
     uint32_t wCnt;
@@ -84,7 +86,7 @@ void pwm_emu_evt(void)
 }
 
 /*-------------------------------------------------------------------------*/
-// breath LED implementation
+// breath LED module
 #define BLED_CYCLE                      (5 * 1000000 / SYSTICK_TIME_PER_TICK)
 #define BLED_STEPS                      (1)
 

@@ -1,33 +1,40 @@
 #include "nrf.h"
 #include "hal-gpio.h"
 
-void hal_gpio_init(gpio_t gpio, gpio_cfg_t cfg)
+/*
+NOTE:
+    - `gpio >> 5` is equal to `gpio / 32`
+    - `gpio & 0x1F` is equal to `gpio % 32`
+    - the purpose of these is to save MCU compute time (a downside is make it difficult to read code for ordinary programer) 
+*/
+
+void hal_gpio_init(gpio_t tGpio, gpio_cfg_t tCfg)
 {
-    NRF_GPIO_Type *port = (NRF_GPIO_Type *)(NRF_P0_BASE + (gpio / 32) * 0x300);
+    NRF_GPIO_Type *pPort = (NRF_GPIO_Type *)(NRF_P0_BASE + (tGpio >> 5) * 0x300);
     
-    port->PIN_CNF[gpio % 32] = ((uint32_t)((cfg >> 0) & 0xF) << GPIO_PIN_CNF_DIR_Pos)
-                             | ((uint32_t)((cfg >> 4) & 0xF) << GPIO_PIN_CNF_INPUT_Pos)
-                             | ((uint32_t)((cfg >> 8) & 0xF) << GPIO_PIN_CNF_PULL_Pos)
-                             | ((uint32_t)((cfg >> 12) & 0xF) << GPIO_PIN_CNF_DRIVE_Pos)
-                             | ((uint32_t)((cfg >> 16) & 0xF) << GPIO_PIN_CNF_SENSE_Pos);
+    pPort->PIN_CNF[tGpio & 0x1F] = ((uint32_t)((tCfg >> 0) & 0xF) << GPIO_PIN_CNF_DIR_Pos)
+                             | ((uint32_t)((tCfg >> 4) & 0xF) << GPIO_PIN_CNF_INPUT_Pos)
+                             | ((uint32_t)((tCfg >> 8) & 0xF) << GPIO_PIN_CNF_PULL_Pos)
+                             | ((uint32_t)((tCfg >> 12) & 0xF) << GPIO_PIN_CNF_DRIVE_Pos)
+                             | ((uint32_t)((tCfg >> 16) & 0xF) << GPIO_PIN_CNF_SENSE_Pos);
 }
 
-void hal_gpio_write(gpio_t gpio, uint32_t val)
+void hal_gpio_write(gpio_t tGpio, uint32_t wVal)
 {
-    NRF_GPIO_Type *port = (NRF_GPIO_Type *)(NRF_P0_BASE + (gpio / 32) * 0x300);
+    NRF_GPIO_Type *pPort = (NRF_GPIO_Type *)(NRF_P0_BASE + (tGpio >> 5) * 0x300);
 
-    if (val) {
-        port->OUTSET = 1UL << (gpio % 32);
+    if (wVal) {
+        pPort->OUTSET = 1UL << (tGpio & 0x1F);
     } else {
-        port->OUTCLR = 1UL << (gpio % 32);
+        pPort->OUTCLR = 1UL << (tGpio & 0x1F );
     }
 }
 
-uint32_t hal_gpio_read(gpio_t gpio)
+uint32_t hal_gpio_read(gpio_t tGpio)
 {
-    NRF_GPIO_Type *port = (NRF_GPIO_Type *)(NRF_P0_BASE + (gpio / 32) * 0x300);
+    NRF_GPIO_Type *pPort = (NRF_GPIO_Type *)(NRF_P0_BASE + (tGpio >> 5) * 0x300);
     
-    if (port->IN & (1UL << (gpio % 32))) {
+    if (pPort->IN & (1UL << (tGpio & 0x1F))) {
         return 1;
     } else {
         return 0;

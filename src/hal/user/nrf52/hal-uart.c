@@ -2,14 +2,14 @@
 #include "hal-uart.h"
 
 typedef struct {
-    bool tx;
+    bool bTx;
 } _uart_t;
 
-_uart_t uart_tab[UART_MAX];
+_uart_t g_tUartTab[UART_MAX];
 
-static uint32_t get_br(uint32_t br)
+static uint32_t get_br(uint32_t wBaudRate)
 {
-    switch (br) {
+    switch (wBaudRate) {
     case 1200:
         return UART_BAUDRATE_BAUDRATE_Baud1200;
     case 2400:
@@ -45,45 +45,41 @@ static uint32_t get_br(uint32_t br)
     case 1000000:
         return UART_BAUDRATE_BAUDRATE_Baud1M;  
     default:
-        return (uint32_t)(((uint64_t)br << 32) / 16000000);    
+        return (uint32_t)(((uint64_t)wBaudRate << 32) / 16000000);
     }
 }
 
-
-
-
-
-void hal_uart_init(uart_t uart, gpio_t txpin, gpio_t rxpin, const uart_cfg_t *cfg)
+void hal_uart_init(uart_t tUart, gpio_t tTxPin, gpio_t tRxPin, const uart_cfg_t *c_pCfg)
 {
-    uint32_t config;
+    uint32_t wConfig;
     
-    if (cfg == NULL) {
+    if (NULL == c_pCfg) {
         return;
     }
     
-    switch (uart) {
+    switch (tUart) {
     case UART_0:
-        config = 0;
-        if (cfg->stop_bits == 2) {
-            config |= UART_CONFIG_STOP_Two << UART_CONFIG_STOP_Pos;
+        wConfig = 0;
+        if (c_pCfg->cStopBits == 2) {
+            wConfig |= UART_CONFIG_STOP_Two << UART_CONFIG_STOP_Pos;
         } else {
-            config |= UART_CONFIG_STOP_One << UART_CONFIG_STOP_Pos;
+            wConfig |= UART_CONFIG_STOP_One << UART_CONFIG_STOP_Pos;
         }
-        if (cfg->parity == NONE) {
-            config |= UART_CONFIG_PARITY_Excluded << UART_CONFIG_PARITY_Pos;
+        if (c_pCfg->bParity == NONE) {
+            wConfig |= UART_CONFIG_PARITY_Excluded << UART_CONFIG_PARITY_Pos;
         } else {
-            config |= UART_CONFIG_STOP_One << UART_CONFIG_STOP_Pos;
+            wConfig |= UART_CONFIG_STOP_One << UART_CONFIG_STOP_Pos;
         }
-    
-        uart_tab[UART_0].tx = false;
-        hal_gpio_init(txpin, GPIO_OUTPUT_PP);
+
+        g_tUartTab[UART_0].bTx = false;
+        hal_gpio_init(tTxPin, GPIO_OUTPUT_PP);
         
         NRF_UART0->ENABLE = UART_ENABLE_ENABLE_Disabled;
-        NRF_UART0->CONFIG = config;
-        NRF_UART0->BAUDRATE = get_br(cfg->baudrate);
+        NRF_UART0->CONFIG = wConfig;
+        NRF_UART0->BAUDRATE = get_br(c_pCfg->wBaudRate);
         
-        NRF_UART0->PSEL.TXD = txpin;
-        NRF_UART0->PSEL.RXD = rxpin;
+        NRF_UART0->PSEL.TXD = tTxPin;
+        NRF_UART0->PSEL.RXD = tRxPin;
         
         NRF_UART0->ENABLE = UART_ENABLE_ENABLE_Enabled;
         NRF_UART0->TASKS_STARTTX = UART_TASKS_STARTTX_TASKS_STARTTX_Trigger;
@@ -99,9 +95,9 @@ void hal_uart_init(uart_t uart, gpio_t txpin, gpio_t rxpin, const uart_cfg_t *cf
 
 }
 
-bool hal_uart_is_tx_empty(uart_t uart)
+bool hal_uart_is_tx_empty(uart_t tUart)
 {
-    switch (uart) {
+    switch (tUart) {
     case UART_0:
         return (NRF_UART0->EVENTS_TXDRDY != 0);
     case UART_1:
@@ -114,14 +110,14 @@ bool hal_uart_is_tx_empty(uart_t uart)
     return false;
 }
 
-bool hal_uart_tx(uart_t uart, uint8_t dt)
+bool hal_uart_tx(uart_t tUart, uint8_t chData)
 {
-    switch (uart) {
+    switch (tUart) {
     case UART_0:
-        if ((NRF_UART0->EVENTS_TXDRDY != 0) || (!uart_tab[uart].tx)) {
+        if ((NRF_UART0->EVENTS_TXDRDY != 0) || (!g_tUartTab[tUart].bTx)) {
             NRF_UART0->EVENTS_TXDRDY = 0;
-            uart_tab[uart].tx = true;
-            NRF_UART0->TXD = dt;
+            g_tUartTab[tUart].bTx = true;
+            NRF_UART0->TXD = chData;
             return true;
         }
     case UART_1:
@@ -134,17 +130,17 @@ bool hal_uart_tx(uart_t uart, uint8_t dt)
     return false;
 }
 
-bool hal_uart_rx(uart_t uart, uint8_t *dt)
+bool hal_uart_rx(uart_t tUart, uint8_t *pData)
 {
-    if (dt == NULL) {
+    if (NULL != pData) {
         return false;
     }
 
-    switch (uart) {
+    switch (tUart) {
     case UART_0:
         if (NRF_UART0->EVENTS_RXDRDY != 0) {
             NRF_UART0->EVENTS_RXDRDY = 0;
-            *dt = NRF_UART0->RXD;
+            *pData = NRF_UART0->RXD;
             return true;
         }
     case UART_1:
