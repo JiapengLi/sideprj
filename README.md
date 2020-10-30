@@ -31,6 +31,8 @@
 
 ## TODO
 
-- [x] astyle  auto format code
-- [x] change variable name
+- [x] ~~astyle  auto format code~~
+- [x] ~~change variable name~~
+- [ ] check variable name follows https://github.com/GorgonMeducer/Generic_MCU_Software_Infrastructure
 - [ ] prepare script to analyse project file and convert to txt file
+
