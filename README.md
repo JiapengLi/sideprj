@@ -31,6 +31,6 @@
 
 ## TODO
 
-- [ ] astyle  auto format code
-- [ ] change variable name
+- [x] astyle  auto format code
+- [x] change variable name
 - [ ] prepare script to analyse project file and convert to txt file
