@@ -25,7 +25,7 @@
 
 | Subject           | Path                                           | Percent |
 | ----------------- | ---------------------------------------------- | ------- |
-| 00-Build platform | `prj\nrf52840-m2\00-platform\platform.uvprojx` | 100%    |
+| 00-Build platform | `prj\nrf52840-m2\00-platform\platform.uvprojx` | 99%    |
 |                   |                                                |         |
 |                   |                                                |         |
 
