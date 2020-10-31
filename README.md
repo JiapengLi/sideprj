@@ -23,14 +23,16 @@
 
 ## Projects
 
-| Subject     | Path                                           | Percent |
-| ----------- | ---------------------------------------------- | ------- |
-| 00-platform | `prj\nrf52840-m2\00-platform\platform.uvprojx` | 100%    |
-|             |                                                |         |
-|             |                                                |         |
+| Subject           | Path                                           | Percent |
+| ----------------- | ---------------------------------------------- | ------- |
+| 00-Build platform | `prj\nrf52840-m2\00-platform\platform.uvprojx` | 99%    |
+|                   |                                                |         |
+|                   |                                                |         |
 
 ## TODO
 
 - [x] ~~astyle  auto format code~~
 - [x] ~~change variable name~~
-
+- [ ] check variable name follows https://github.com/GorgonMeducer/Generic_MCU_Software_Infrastructure
+- [ ] prepare script to analyse project file and convert to txt file
+- [ ] vscode + gcc + CMake development environment
