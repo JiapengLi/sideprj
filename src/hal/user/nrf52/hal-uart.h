@@ -33,6 +33,6 @@ typedef struct {
 
 extern void hal_uart_init(uart_t tUart, gpio_t tTxPin, gpio_t tRxPin, const uart_cfg_t *c_pCfg);
 extern bool hal_uart_tx(uart_t tUart, uint8_t chData);
-extern bool hal_uart_rx(uart_t tUart, uint8_t *pData);
+extern bool hal_uart_rx(uart_t tUart, uint8_t *pchData);
 
 #endif

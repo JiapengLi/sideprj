@@ -5,7 +5,7 @@ typedef struct {
     bool bTx;
 } _uart_t;
 
-_uart_t g_tUartTab[UART_MAX];
+static _uart_t s_tUartTab[UART_MAX];
 
 static uint32_t get_br(uint32_t wBaudRate)
 {
@@ -71,7 +71,7 @@ void hal_uart_init(uart_t tUart, gpio_t tTxPin, gpio_t tRxPin, const uart_cfg_t 
                 wConfig |= UART_CONFIG_STOP_One << UART_CONFIG_STOP_Pos;
             }
 
-            g_tUartTab[UART_0].bTx = false;
+            s_tUartTab[UART_0].bTx = false;
             hal_gpio_init(tTxPin, GPIO_OUTPUT_PP);
 
             NRF_UART0->ENABLE = UART_ENABLE_ENABLE_Disabled;
@@ -114,9 +114,9 @@ bool hal_uart_tx(uart_t tUart, uint8_t chData)
 {
     switch (tUart) {
         case UART_0:
-            if ((NRF_UART0->EVENTS_TXDRDY != 0) || (!g_tUartTab[tUart].bTx)) {
+            if ((NRF_UART0->EVENTS_TXDRDY != 0) || (!s_tUartTab[tUart].bTx)) {
                 NRF_UART0->EVENTS_TXDRDY = 0;
-                g_tUartTab[tUart].bTx = true;
+                s_tUartTab[tUart].bTx = true;
                 NRF_UART0->TXD = chData;
                 return true;
             }
@@ -130,9 +130,9 @@ bool hal_uart_tx(uart_t tUart, uint8_t chData)
     return false;
 }
 
-bool hal_uart_rx(uart_t tUart, uint8_t *pData)
+bool hal_uart_rx(uart_t tUart, uint8_t *pchData)
 {
-    if (NULL != pData) {
+    if (NULL != pchData) {
         return false;
     }
 
@@ -140,7 +140,7 @@ bool hal_uart_rx(uart_t tUart, uint8_t *pData)
         case UART_0:
             if (NRF_UART0->EVENTS_RXDRDY != 0) {
                 NRF_UART0->EVENTS_RXDRDY = 0;
-                *pData = NRF_UART0->RXD;
+                *pchData = NRF_UART0->RXD;
                 return true;
             }
         case UART_1:

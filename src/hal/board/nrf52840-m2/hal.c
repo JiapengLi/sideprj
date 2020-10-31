@@ -26,14 +26,14 @@ void system_init(void)
     breathled_init();
 }
 
-bool serial_in(uint8_t *pData)
+bool serial_in(uint8_t *pchData)
 {
-    return hal_uart_rx(UART_0, pData);
+    return hal_uart_rx(UART_0, pchData);
 }
 
-bool serial_out(uint8_t pData)
+bool serial_out(uint8_t chData)
 {
-    return hal_uart_tx(UART_0, pData);
+    return hal_uart_tx(UART_0, chData);
 }
 
 uint32_t millis(void)
@@ -50,37 +50,37 @@ typedef struct {
     uint32_t wNextCmp;
 } pwm_emu_t;
 
-pwm_emu_t g_tPWMEmu;
+static pwm_emu_t s_tPWMEmu;
 
 void pwm_emu_init(uint32_t wArr, uint32_t wCmp)
 {
-    g_tPWMEmu.wCnt = 0;
-    g_tPWMEmu.wArr = wArr;
-    g_tPWMEmu.wCmp = wCmp;
-    g_tPWMEmu.wNextCmp = wCmp;
+    s_tPWMEmu.wCnt = 0;
+    s_tPWMEmu.wArr = wArr;
+    s_tPWMEmu.wCmp = wCmp;
+    s_tPWMEmu.wNextCmp = wCmp;
     LED2_OFF();
 }
 
 void pwm_emu_update(uint32_t wCmp)
 {
-    g_tPWMEmu.wNextCmp = wCmp;
+    s_tPWMEmu.wNextCmp = wCmp;
 }
 
 void pwm_emu_evt(void)
 {
-    g_tPWMEmu.wCnt++;
-    if (g_tPWMEmu.wCnt > g_tPWMEmu.wArr) {
-        g_tPWMEmu.wCnt = 0;
+    s_tPWMEmu.wCnt++;
+    if (s_tPWMEmu.wCnt > s_tPWMEmu.wArr) {
+        s_tPWMEmu.wCnt = 0;
 
-        g_tPWMEmu.wCmp = g_tPWMEmu.wNextCmp;
+        s_tPWMEmu.wCmp = s_tPWMEmu.wNextCmp;
 
-        if (g_tPWMEmu.wCmp != 0) {
+        if (s_tPWMEmu.wCmp != 0) {
             LED2_ON();
         } else {
             LED2_OFF();
         }
     }
-    if (g_tPWMEmu.wCnt == g_tPWMEmu.wCmp) {
+    if (s_tPWMEmu.wCnt == s_tPWMEmu.wCmp) {
         LED2_OFF();
     }
 }
@@ -107,51 +107,51 @@ typedef struct {
     uint32_t wDutyCycle;
 } bled_t;
 
-static bled_t g_tBLED;
+static bled_t s_tBLED;
 
 void breathled_init(void)
 {
     pwm_emu_init(BLED_CYCLE, 0);
 
-    g_tBLED.tSta = BLED_STA_ON;
-    g_tBLED.wDutyCycle = 0;
-    g_tBLED.wMs = 0;
-    g_tBLED.wTimeout = 0;
+    s_tBLED.tSta = BLED_STA_ON;
+    s_tBLED.wDutyCycle = 0;
+    s_tBLED.wMs = 0;
+    s_tBLED.wTimeout = 0;
 }
 
 void breathled(void)
 {
     uint32_t wCurMs = millis();
 
-    switch (g_tBLED.tSta) {
+    switch (s_tBLED.tSta) {
         case BLED_STA_ON:
-            if ((wCurMs - g_tBLED.wTimeout) > 2) {
-                g_tBLED.wTimeout = millis();
-                g_tBLED.wDutyCycle += BLED_STEPS;
-                pwm_emu_update(g_tBLED.wDutyCycle);
+            if ((wCurMs - s_tBLED.wTimeout) > 2) {
+                s_tBLED.wTimeout = millis();
+                s_tBLED.wDutyCycle += BLED_STEPS;
+                pwm_emu_update(s_tBLED.wDutyCycle);
             }
-            if ((wCurMs - g_tBLED.wMs) >= BLED_ON_DURATIOIN) {
-                g_tBLED.wMs = millis();
-                g_tBLED.tSta = BLED_STA_OFF;
+            if ((wCurMs - s_tBLED.wMs) >= BLED_ON_DURATIOIN) {
+                s_tBLED.wMs = millis();
+                s_tBLED.tSta = BLED_STA_OFF;
             }
             break;
         case BLED_STA_OFF:
-            if ((wCurMs - g_tBLED.wTimeout) > 2) {
-                g_tBLED.wTimeout = millis();
-                if (g_tBLED.wDutyCycle != 0) {
-                    g_tBLED.wDutyCycle -= BLED_STEPS;
+            if ((wCurMs - s_tBLED.wTimeout) > 2) {
+                s_tBLED.wTimeout = millis();
+                if (s_tBLED.wDutyCycle != 0) {
+                    s_tBLED.wDutyCycle -= BLED_STEPS;
                 }
-                pwm_emu_update(g_tBLED.wDutyCycle);
+                pwm_emu_update(s_tBLED.wDutyCycle);
             }
-            if ((wCurMs - g_tBLED.wMs) >= BLED_OFF_DURATIOIN) {
-                g_tBLED.wMs = millis();
-                g_tBLED.tSta = BLED_STA_IDLE;
+            if ((wCurMs - s_tBLED.wMs) >= BLED_OFF_DURATIOIN) {
+                s_tBLED.wMs = millis();
+                s_tBLED.tSta = BLED_STA_IDLE;
             }
             break;
         case BLED_STA_IDLE:
-            if ((wCurMs - g_tBLED.wMs) >= BLED_IDLE_DURATION) {
-                g_tBLED.wMs = millis();
-                g_tBLED.tSta = BLED_STA_ON;
+            if ((wCurMs - s_tBLED.wMs) >= BLED_IDLE_DURATION) {
+                s_tBLED.wMs = millis();
+                s_tBLED.tSta = BLED_STA_ON;
             }
             break;
     }

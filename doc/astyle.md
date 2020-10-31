@@ -52,3 +52,8 @@ sh tool/as.sh --recursive "src/app/*.c,*.h"
 sh tool/as.sh --recursive "src/hal/board/*.c,*.h"
 ```
 
+## Generate standalone txt for review
+
+```bash
+sh ./tool/mergefiles.sh prj/nrf52840-m2/00-platform/prjfiles.txt  > _publish/platform-20201031-5.txt
+```

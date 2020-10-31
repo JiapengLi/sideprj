@@ -1,0 +1,12 @@
+src/app/platform/nrf52840-m2/main.c
+src/hal/board/nrf52840-m2/hal.c
+src/hal/board/nrf52840-m2/hal.h
+src/hal/user/nrf52/hal-gpio.c
+src/hal/user/nrf52/hal-gpio.h
+src/hal/user/nrf52/hal-clk.c
+src/hal/user/nrf52/hal-clk.h
+src/hal/user/nrf52/hal-systick-emu.c
+src/hal/user/nrf52/hal-systick-emu.h
+src/hal/user/nrf52/hal-uart.c
+src/hal/user/nrf52/hal-uart.h
+

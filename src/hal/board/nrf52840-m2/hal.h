@@ -38,7 +38,7 @@
 
 extern void system_init(void);
 
-extern bool serial_in(uint8_t *pData);
+extern bool serial_in(uint8_t *pchData);
 extern bool serial_out(uint8_t chData);
 
 extern uint32_t millis(void);
