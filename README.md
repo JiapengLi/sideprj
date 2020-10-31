@@ -23,13 +23,14 @@
 
 ## Projects
 
-| Subject           | Path                                           | Percent |
-| ----------------- | ---------------------------------------------- | ------- |
-| 00-Build platform | `prj\nrf52840-m2\00-platform\platform.uvprojx` | 100%    |
-|                   |                                                |         |
-|                   |                                                |         |
+| Subject     | Path                                           | Percent |
+| ----------- | ---------------------------------------------- | ------- |
+| 00-platform | `prj\nrf52840-m2\00-platform\platform.uvprojx` | 100%    |
+|             |                                                |         |
+|             |                                                |         |
 
 ## TODO
 
-- astyle  auto format code
-- change variable name
+- [x] ~~astyle  auto format code~~
+- [x] ~~change variable name~~
+
